@@ -1,48 +1,37 @@
+$bookmark = "https://docs.microsoft.com/en-us/powershell/scripting/learn/ps101/01-getting-started?view=powershell-7.2";
 $CHEMSCHED = "M:\DecaturChemicalPlant\Production Schedule\In Process Working Schedules";
+$DATA = "TOTAL MONEY MAKE-OVER  AT ONE HOUR TWENTY-SIX MINUTES EXACTLY";
 $LOG = "C:\Users\a3t2yzz\OneDrive - 3M\Documents\WindowsPowerShell\PowershellLog.txt"
 $res = "Restricted";
 $RS = "RemoteSigned";
 $scriptLocation = "M:\114320 Quality Assur\quality\Common folder\Scripts";
+$sp0018 = '.\0AC-Lab-SPs\AC-Lab-SP-0018 Entering Technician Test Records\'
 $t = "<##>;gd;cls";
 $time = @();
 $time += "05:42 AM";
 $time += "05:55 PM";
+$trainerhome = "C:\Users\A3T2YZZ\OneDrive - 3M\General"
 $zzProfileConfirmation = 'This profile loaded successfully!';
 
-new-alias -name "gd" Get-Date
-
+New-Alias -name "gd" Get-Date
+New-Alias -Name GEP -Value Get-ExecutionPolicy -Description "This purpose of this alias is to shorten the command of Get-ExecutionPolicy to something a little more keyboard friendly.";
+New-Alias -Name SEP -Value Set-ExecutionPolicy -Description "This purpose of this alias is to shorten the command of Set-ExecutionPolicy to something a little more keyboard friendly.";
 function Alarm () {$tmp = Read-Host "How long would you like to sleep?";start-sleep -s $tmp;[console]::Beep(1000,1500);};
+function chrome {Start-Process -FilePath '"C:\Program Files\Google\Chrome\Application\chrome.exe"'}
+function Close {kill -Name cmd; kill -Name powershell_ise; kill -Name powershell};
 function Pray {"Step 3 Prayer:";"God, I offer myself to Thee To build with me and to do with me as Thou wilt.";
 "Relieve me of the bondage of self, that I may better do Thy will."; "Take away my difficulties, that victory over them may bear witness to those I would help of Thy Power, Thy Love, and Thy Way of Life."; "May I do thy will always."; "Amen.";"";"Step 7 Prayer:";
 "My Creator, I am now willing that you should have all of me, good and bad."; "I pray that you now remove from me every single defect of characheter which stands in the way of my usefulness to you and my fellows."; "Grant me strength, as I go out from here to do your bidding.";};
-function chrome {Start-Process -FilePath '"C:\Program Files\Google\Chrome\Application\chrome.exe"'}
+function Remote {SEP $RS; cls; GEP};
+function Restrict {SEP $Res; cls; GEP};
 
 Start-Transcript -Append -Path $LOG;
 Write-Output "Session begin:";
 gd;
-# python -m pip install --trusted-host files.pythonhosted.org --trusted-host pypi.org --trusted-host pypi.python.org <packagename>
 
-# Here's a location;
-#Add branching point based off profile used. 
-New-Alias -Name SEP -Value Set-ExecutionPolicy -Description "This purpose of this alias is to shorten the command of Set-ExecutionPolicy to something a little more keyboard friendly.";
-New-Alias -Name GEP -Value Get-ExecutionPolicy -Description "This purpose of this alias is to shorten the command of Get-ExecutionPolicy to something a little more keyboard friendly.";
-function Restrict {SEP $Res; cls; GEP};
-function Remote {SEP $RS; cls; GEP};
-function Close {kill -Name cmd; kill -Name powershell_ise; kill -Name powershell};
-#Stop-Process -Name cmd;
-Restrict;
-$DATA = "TOTAL MONEY MAKE-OVER  AT ONE HOUR TWENTY-SIX MINUTES EXACTLY";
-$bookmark = "https://docs.microsoft.com/en-us/powershell/scripting/learn/ps101/01-getting-started?view=powershell-7.2";
-#What about a secret Journal?;
-#I would need to create a text file, change values, save the values, encrpyt the values. Next I would need to decrypt those values.;
-#Can I create a script that makes Narnia, creates a script within narnia to delete itself on closing?;
-#Runscript in common drive to load all preferences and goals and such? How?;
-#In mathematics, the Fibonacci numbers, commonly denoted Fₙ, form a sequence, called the Fibonacci sequence, such that each number is the sum of the two preceding ones, starting from 0 and 1. That is, and for n > 1. The sequence starts: 0, 1, 1, 2, 3, 5, 8...;
 <#
 MAYBE THIS IS AN IDEQA FOR A TIMER? OR ALARM?
- 
 cls; $a = get-date;$b = [DateTime]'07/16/2023 22:49'; $c = New-Timespan -Start $a -end $b; start-sleep -s ($c.hours*3600 + $c.minutes*60 + $c.seconds); kill -name powershell
- 
 $a = Get-Date -Format HH:mm:ss
 $b = [datetime]"13:00:00"
 (New-TimeSpan -Start $a -End $b).TotalSeconds
@@ -138,5 +127,4 @@ Start-Sleep -Seconds 1.5
 Start-Sleep -Seconds 1.5
 }
 #>
-$sp0018 = '.\0AC-Lab-SPs\AC-Lab-SP-0018 Entering Technician Test Records\'
-$trainerhome = "C:\Users\A3T2YZZ\OneDrive - 3M\General"
+# python -m pip install --trusted-host files.pythonhosted.org --trusted-host pypi.org --trusted-host pypi.python.org <packagename>
