@@ -1,0 +1,142 @@
+$CHEMSCHED = "M:\DecaturChemicalPlant\Production Schedule\In Process Working Schedules";
+$LOG = "C:\Users\a3t2yzz\OneDrive - 3M\Documents\WindowsPowerShell\PowershellLog.txt"
+$res = "Restricted";
+$RS = "RemoteSigned";
+$scriptLocation = "M:\114320 Quality Assur\quality\Common folder\Scripts";
+$t = "<##>;gd;cls";
+$time = @();
+$time += "05:42 AM";
+$time += "05:55 PM";
+$zzProfileConfirmation = 'This profile loaded successfully!';
+
+new-alias -name "gd" Get-Date
+
+function Alarm () {$tmp = Read-Host "How long would you like to sleep?";start-sleep -s $tmp;[console]::Beep(1000,1500);};
+function Pray {"Step 3 Prayer:";"God, I offer myself to Thee To build with me and to do with me as Thou wilt.";
+"Relieve me of the bondage of self, that I may better do Thy will."; "Take away my difficulties, that victory over them may bear witness to those I would help of Thy Power, Thy Love, and Thy Way of Life."; "May I do thy will always."; "Amen.";"";"Step 7 Prayer:";
+"My Creator, I am now willing that you should have all of me, good and bad."; "I pray that you now remove from me every single defect of characheter which stands in the way of my usefulness to you and my fellows."; "Grant me strength, as I go out from here to do your bidding.";};
+function chrome {Start-Process -FilePath '"C:\Program Files\Google\Chrome\Application\chrome.exe"'}
+
+Start-Transcript -Append -Path $LOG;
+Write-Output "Session begin:";
+gd;
+# python -m pip install --trusted-host files.pythonhosted.org --trusted-host pypi.org --trusted-host pypi.python.org <packagename>
+
+# Here's a location;
+#Add branching point based off profile used. 
+New-Alias -Name SEP -Value Set-ExecutionPolicy -Description "This purpose of this alias is to shorten the command of Set-ExecutionPolicy to something a little more keyboard friendly.";
+New-Alias -Name GEP -Value Get-ExecutionPolicy -Description "This purpose of this alias is to shorten the command of Get-ExecutionPolicy to something a little more keyboard friendly.";
+function Restrict {SEP $Res; cls; GEP};
+function Remote {SEP $RS; cls; GEP};
+function Close {kill -Name cmd; kill -Name powershell_ise; kill -Name powershell};
+#Stop-Process -Name cmd;
+Restrict;
+$DATA = "TOTAL MONEY MAKE-OVER  AT ONE HOUR TWENTY-SIX MINUTES EXACTLY";
+$bookmark = "https://docs.microsoft.com/en-us/powershell/scripting/learn/ps101/01-getting-started?view=powershell-7.2";
+#What about a secret Journal?;
+#I would need to create a text file, change values, save the values, encrpyt the values. Next I would need to decrypt those values.;
+#Can I create a script that makes Narnia, creates a script within narnia to delete itself on closing?;
+#Runscript in common drive to load all preferences and goals and such? How?;
+#In mathematics, the Fibonacci numbers, commonly denoted Fₙ, form a sequence, called the Fibonacci sequence, such that each number is the sum of the two preceding ones, starting from 0 and 1. That is, and for n > 1. The sequence starts: 0, 1, 1, 2, 3, 5, 8...;
+<#
+MAYBE THIS IS AN IDEQA FOR A TIMER? OR ALARM?
+ 
+cls; $a = get-date;$b = [DateTime]'07/16/2023 22:49'; $c = New-Timespan -Start $a -end $b; start-sleep -s ($c.hours*3600 + $c.minutes*60 + $c.seconds); kill -name powershell
+ 
+$a = Get-Date -Format HH:mm:ss
+$b = [datetime]"13:00:00"
+(New-TimeSpan -Start $a -End $b).TotalSeconds
+#>
+<#Here's a clicker script#>
+$cSource = @'
+using System;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+public class Clicker
+{
+//https://msdn.microsoft.com/en-us/library/windows/desktop/ms646270(v=vs.85).aspx
+[StructLayout(LayoutKind.Sequential)]
+struct INPUT
+{ 
+    public int        type; // 0 = INPUT_MOUSE,
+                            // 1 = INPUT_KEYBOARD
+                            // 2 = INPUT_HARDWARE
+    public MOUSEINPUT mi;
+}
+ 
+//https://msdn.microsoft.com/en-us/library/windows/desktop/ms646273(v=vs.85).aspx
+[StructLayout(LayoutKind.Sequential)]
+struct MOUSEINPUT
+{
+    public int    dx ;
+    public int    dy ;
+    public int    mouseData ;
+    public int    dwFlags;
+    public int    time;
+    public IntPtr dwExtraInfo;
+}
+ 
+//This covers most use cases although complex mice may have additional buttons
+//There are additional constants you can use for those cases, see the msdn page
+const int MOUSEEVENTF_MOVED      = 0x0001 ;
+const int MOUSEEVENTF_LEFTDOWN   = 0x0002 ;
+const int MOUSEEVENTF_LEFTUP     = 0x0004 ;
+const int MOUSEEVENTF_RIGHTDOWN  = 0x0008 ;
+const int MOUSEEVENTF_RIGHTUP    = 0x0010 ;
+const int MOUSEEVENTF_MIDDLEDOWN = 0x0020 ;
+const int MOUSEEVENTF_MIDDLEUP   = 0x0040 ;
+const int MOUSEEVENTF_WHEEL      = 0x0080 ;
+const int MOUSEEVENTF_XDOWN      = 0x0100 ;
+const int MOUSEEVENTF_XUP        = 0x0200 ;
+const int MOUSEEVENTF_ABSOLUTE   = 0x8000 ;
+ 
+const int screen_length = 0x10000 ;
+ 
+//https://msdn.microsoft.com/en-us/library/windows/desktop/ms646310(v=vs.85).aspx
+[System.Runtime.InteropServices.DllImport("user32.dll")]
+extern static uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize);
+ 
+public static void LeftClickAtPoint(int x, int y)
+{
+    //Move the mouse
+    INPUT[] input = new INPUT[3];
+    input[0].mi.dx = x*(65535/System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width);
+    input[0].mi.dy = y*(65535/System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height);
+    input[0].mi.dwFlags = MOUSEEVENTF_MOVED | MOUSEEVENTF_ABSOLUTE;
+    //Left mouse button down
+    input[1].mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
+    //Left mouse button up
+    input[2].mi.dwFlags = MOUSEEVENTF_LEFTUP;
+    SendInput(3, input, Marshal.SizeOf(input[0]));
+}
+ 
+public static void RightClickAtPoint(int x, int y)
+{
+    //Move the mouse
+    INPUT[] input = new INPUT[3];
+    input[0].mi.dx = x*(65535/System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width);
+    input[0].mi.dy = y*(65535/System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height);
+    input[0].mi.dwFlags = MOUSEEVENTF_MOVED | MOUSEEVENTF_ABSOLUTE;
+    //Left mouse button down
+    input[1].mi.dwFlags = MOUSEEVENTF_RIGHTDOWN;
+    //Left mouse button up
+    input[2].mi.dwFlags = MOUSEEVENTF_RIGHTUP;
+    SendInput(3, input, Marshal.SizeOf(input[0]));
+}
+ 
+}
+'@
+Add-Type -TypeDefinition $cSource -ReferencedAssemblies System.Windows.Forms,System.Drawing
+ 
+<#
+Example of how it works:
+while ($true) {
+[Clicker]::RightClickAtPoint(300,300)
+Start-Sleep -Seconds 1.5
+[Clicker]::RightClickAtPoint(600,600)
+Start-Sleep -Seconds 1.5
+}
+#>
+$sp0018 = '.\0AC-Lab-SPs\AC-Lab-SP-0018 Entering Technician Test Records\'
+$trainerhome = "C:\Users\A3T2YZZ\OneDrive - 3M\General"
